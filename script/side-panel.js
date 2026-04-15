@@ -91,6 +91,13 @@ document.addEventListener('DOMContentLoaded', function() {
             const properties = poi.properties;
             const currentLanguage = localStorage.getItem('language') || 'fr';
             const displayName = (currentLanguage === 'en' && properties.nom_en) ? properties.nom_en : properties.nom;
+            const t = (typeof translations !== 'undefined') ? translations[currentLanguage] : null;
+            const subcatMap = {
+                'Patrimoine bâti monumental': t ? t.castlesManors : 'Châteaux, Manoirs...',
+                'Patrimoine Religieux': t ? t.churchesChapels : 'Eglises, Chapelles...',
+                'Bâti Traditionnel': t ? t.traditionalBuildings : 'Maisons, Moulins, Lavoirs...'
+            };
+            const displaySubcat = subcatMap[properties.sous_cat] || (t ? (translations[currentLanguage][Object.keys(translations.fr).find(k => translations.fr[k] === properties.sous_cat)] || properties.sous_cat) : properties.sous_cat);
             
             // Création de la carte
             const card = document.createElement('div');
@@ -109,12 +116,12 @@ document.addEventListener('DOMContentLoaded', function() {
                 ${imageHtml}
                 <div class="poi-content">
                     <h3 class="poi-title">${displayName}</h3>
-                    <span class="poi-category">${properties.sous_cat === 'Patrimoine bâti monumental' ? 'Châteaux, Manoirs...' : properties.sous_cat === 'Patrimoine Religieux' ? 'Eglises, Chapelles...' : properties.sous_cat === 'Bâti Traditionnel' ? 'Maisons, Moulins, Lavoirs...' : properties.sous_cat}</span>
+                    <span class="poi-category">${displaySubcat}</span>
                     <div class="poi-location">
                         <i class="fas fa-map-marker-alt"></i> ${properties.commune || ''}
                         ${properties.adresse ? ` - ${properties.adresse}` : ''}
                     </div>
-                    <a href="#" class="poi-button" data-id="${properties.id}">Plus d'informations</a>
+                    <a href="#" class="poi-button" data-id="${properties.id}">${t ? t.moreInformation : 'Plus d\'informations'}</a>
                 </div>
             `;
             
@@ -156,11 +163,11 @@ document.addEventListener('DOMContentLoaded', function() {
                 ${imageHtml}
                 <div class="poi-content">
                     <h3 class="poi-title">${displayName}</h3>
-                    <span class="poi-category">Etangs et Rivières</span>
+                    <span class="poi-category">${(typeof translations !== 'undefined' && localStorage.getItem('language') === 'en') ? translations.en.pondsRivers : 'Etangs et Rivières'}</span>
                     <div class="poi-location">
                         <i class="fas fa-water"></i> Cours d'eau
                     </div>
-                    <a href="#" class="poi-button riviere-button">Plus d'informations</a>
+                    <a href="#" class="poi-button riviere-button">${(typeof translations !== 'undefined') ? translations[localStorage.getItem('language') || 'fr'].moreInformation : 'Plus d\'informations'}</a>
                 </div>
             `;
             
