@@ -151,20 +151,13 @@ const translations = {
 // Classe pour gérer la langue
 class LanguageSwitcher {
     constructor() {
-        // Lire le paramètre lang dans l'URL si présent
-        const urlParams = new URLSearchParams(window.location.search);
-        const urlLang = urlParams.get('lang');
-        
-        // Sinon détecter via le referrer (ex: en.tourisme-pays-houdanais.fr)
-        let detectedLang = null;
-        if (urlLang && translations[urlLang]) {
-            detectedLang = urlLang;
-        } else if (document.referrer && document.referrer.includes('en.')) {
-            detectedLang = 'en';
+        // Détecter la langue via le referrer (ex: en.tourisme-pays-houdanais.fr)
+        const referrer = document.referrer;
+        if (referrer && referrer.includes('en.')) {
+            this.currentLanguage = 'en';
+        } else {
+            this.currentLanguage = 'fr';
         }
-        
-        this.forcedLang = detectedLang;
-        this.currentLanguage = this.forcedLang || 'fr';
         localStorage.setItem('language', this.currentLanguage);
         this.init();
     }

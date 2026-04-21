@@ -14,10 +14,12 @@ document.addEventListener('DOMContentLoaded', function() {
         }
         
         const currentLanguage = localStorage.getItem('language') || 'fr';
+        const t = (typeof translations !== 'undefined') ? translations[currentLanguage] : null;
         
         poiData.forEach(poi => {
             const properties = poi.properties;
             const displayName = (currentLanguage === 'en' && properties.nom_en) ? properties.nom_en : properties.nom;
+            const displaySubcat = (currentLanguage === 'en' && properties.sous_cat_en) ? properties.sous_cat_en : properties.sous_cat;
             
             // Création de la carte
             const card = document.createElement('div');
@@ -38,13 +40,13 @@ document.addEventListener('DOMContentLoaded', function() {
                 ${imageHtml}
                 <div class="poi-content">
                     <h3 class="poi-title">${displayName}</h3>
-                    <span class="poi-category">${properties.sous_cat}</span>
+                    <span class="poi-category">${displaySubcat}</span>
                     <p class="poi-description">${properties.descriptif || 'Aucune description disponible.'}</p>
                     <div class="poi-location">
                         <i class="fas fa-map-marker-alt"></i> ${properties.commune || ''}
                         ${properties.adresse ? ` - ${properties.adresse}` : ''}
                     </div>
-                    <a href="#" class="poi-button" data-id="${properties.id}">Voir détails</a>
+                    <a href="#" class="poi-button" data-id="${properties.id}">${t ? t.moreInformation : 'Plus d\'informations'}</a>
                 </div>
             `;
             
@@ -240,6 +242,13 @@ document.addEventListener('DOMContentLoaded', function() {
             poiListContainer.innerHTML = '<div class="error-message">Impossible de charger les points d\'intérêt.</div>';
         }
     }
+    
+    // Rafraîchir les cartes lors d'un changement de langue
+    window.addEventListener('languageChanged', function() {
+        if (typeof poi !== 'undefined' && poi.features) {
+            filterPois();
+        }
+    });
     
     // Lancer l'initialisation
     init();
