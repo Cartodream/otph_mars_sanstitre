@@ -206,12 +206,12 @@
   }
   
   .main-container {
-    height: 100vh !important;
+    height: calc(100vh - 50px) !important;
   }
   
   .side-panel {
-    top: 0 !important;
-    height: 100vh !important;
+    top: 50px !important;
+    height: calc(100vh - 50px) !important;
     max-width: 70vw !important;
     width: 70vw !important;
   }

@@ -1,13 +1,6 @@
 /* LAVAL STYLE - PRIORITÉ HAUTE - Écrase viking-theme.css pour le layout fonctionnel */
 /* Ce fichier contient les styles critiques pour le fonctionnement de la carte */
 
-body {
-    height: 100vh !important;
-    padding: 0 !important;
-    margin: 0 !important;
-    overflow: hidden;
-}
-
 /* Conteneur principal de la carte */
 .main-container {
     position: relative;
@@ -315,11 +308,11 @@ body {
 /* Volet droit - Override side-panel.css */
 .side-panel {
     position: fixed !important;
-    top: 0 !important;
+    top: 100px !important;
     right: -400px !important;
     width: 400px !important;
-    height: 100vh !important;
-    max-height: 100vh !important;
+    height: calc(100vh - 100px) !important;
+    max-height: calc(100vh - 100px) !important;
     /* overflow: hidden retiré pour permettre le scroll des enfants */
 }
 
