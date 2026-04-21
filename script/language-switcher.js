@@ -168,8 +168,8 @@ class LanguageSwitcher {
     }
     
     createLanguageSwitcher() {
-        // Masquer le sélecteur si la langue est forcée via l'URL
-        if (this.forcedLang) return;
+        // Bouton toujours masqué
+        return;
         
         // Créer le conteneur du sélecteur de langue
         const languageSwitcher = document.createElement('div');
