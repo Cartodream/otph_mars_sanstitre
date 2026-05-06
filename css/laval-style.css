@@ -5,7 +5,8 @@
 .main-container {
     position: relative;
     display: block;
-    height: 100vh;
+    flex: 1;
+    height: 0;
 }
 
 /* Conteneur de la carte */
@@ -303,7 +304,8 @@
 .site-container {
     display: flex;
     flex-direction: column;
-    min-height: 100vh;
+    height: 100vh;
+    overflow: hidden;
 }
 /* Volet droit - Override side-panel.css */
 .side-panel {
@@ -320,7 +322,9 @@
     right: 0 !important;
 }
 
-.side-panel::after {
+#side-panel::after,
+#explorer-panel::after,
+#fondation-panel::after {
     content: '';
     position: absolute;
     bottom: 0;
@@ -334,6 +338,8 @@
 #side-panel {
     background: rgba(128, 128, 118, 0.75) !important;
 }
+
+
 
 #side-panel .poi-list {
     background: rgba(241, 241, 239, 0.75) !important;

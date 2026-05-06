@@ -83,32 +83,26 @@
     display: none;
 }
 
-.poi-list, .fondation-poi-list, .explorer-content {
+.poi-list, .explorer-content {
     padding: 15px;
     background: rgba(128, 128, 118, 0.75) !important;
     overflow-y: auto;
     flex: 1;
 }
 
-/* Assurer que le détail POI peut scroller */
-.poi-detail {
-    min-height: 100%;
-    overflow-y: visible;
+.fondation-scroll {
+    overflow-y: auto;
+    flex: 1;
 }
 
 .fondation-poi-list {
+    padding: 15px;
     background: rgba(128, 128, 118, 0.75) !important;
 }
 
-/* Fondation content - sticky sur desktop */
 .fondation-content {
-    position: sticky;
-    top: 0;
-    background: white;
-    z-index: 1000;
     padding: 20px;
     border-bottom: 1px solid #ddd;
-    flex-shrink: 0;
 }
 
 .poi-card {
